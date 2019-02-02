@@ -6,16 +6,20 @@
         acg-trend-web
       </h1>
       <h2 class="subtitle">
-        detail
+        acg trend web
       </h2>
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">
           Documentation
         </a>
-        <a-button> Hello world! </a-button>
-      </div>
-      <div>
-        <RankTable />
+
+        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">
+          GitHub
+        </a>
+
+        <a href="http://localhost:3000/detail" target="_blank" class="button--grey">
+          detail
+        </a>
       </div>
     </div>
   </section>
@@ -23,17 +27,12 @@
 
 <script>
 import Logo from '~/components/Logo.vue';
-import RankTable from '~/components/RankTable.vue';
 
 export default {
   "components": {
-    Logo,
-    RankTable
+    Logo
   }
 }
-// https://acgtrend.com/detail/trend/data/937/2
-// http://localhost:13002/rank/playData
-
 </script>
 
 <style>
