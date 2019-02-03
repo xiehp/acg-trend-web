@@ -1,3 +1,4 @@
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
 
 module.exports = {
@@ -13,7 +14,14 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      }
+    ]
   },
 
   /*
@@ -24,18 +32,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    'ant-design-vue/dist/antd.css',
-    'vuetify/dist/vuetify.css'
-  ],
+  css: ['~/assets/style/app.styl'],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    '@/plugins/antd-ui',
-    '@/plugins/vuetify-ui'
-  ],
+  plugins: ['@/plugins/vuetify'],
 
   /*
   ** Nuxt.js modules
@@ -56,6 +58,14 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    transpile: ['vuetify/lib'],
+    plugins: [new VuetifyLoaderPlugin()],
+    loaders: {
+      stylus: {
+        import: ['~assets/style/variables.styl']
+      }
+    },
+
     /*
     ** You can extend webpack config here
     */
