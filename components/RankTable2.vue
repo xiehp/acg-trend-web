@@ -7,7 +7,7 @@
       {{ title }}
     </div>
     <div>
-      {{ data.chartName }}
+      <!--{{ data.chartName }}-->
     </div>
   </div>
 </template>

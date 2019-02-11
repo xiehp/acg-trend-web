@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <logo />
+      <logo/>
       <h1 class="title">
         acg-trend-web
       </h1>
@@ -14,10 +14,10 @@
         </a>
       </div>
       <div>
-        <RankTable />
+        <RankTable :headers="headers" :desserts="desserts1"/>
       </div>
       <div>
-        <RankTable2 :data="data" />
+        <RankTable2 :data="data"/>
       </div>
 
       <v-app id="inspire">
@@ -78,10 +78,13 @@
 </template>
 
 <script>
-  import Logo from '~/components/Logo.vue'
-  import RankTable from '~/components/RankTable.vue'
-  import RankTable2 from '../components/RankTable2'
-  import axios from 'axios'
+  import axios from "axios"
+  import Logo from "../components/Logo.vue"
+  import RankTable from "../components/RankTable.vue"
+  import RankTable2 from "../components/RankTable2.vue"
+
+  let rankData;
+  let nameSiteMap;
 
   export default {
     components: {
@@ -90,17 +93,68 @@
       RankTable2
     },
     asyncData() {
-      let url = process.env.baseUrl + '/rank/playData';
+      const url = process.env.baseUrl + "/rank/playData";
       const bbb = axios.get(url)
         .then((res) => {
-          console.log('url:' + url);
-          // console.log(res.data);
+          const result = res.data;
+          rankData = result.data;
+          nameSiteMap = rankData.nameSiteMap;
+
+          console.log("access url:" + url + " success.");
+          console.log("result size:" + result.size);
+          console.log("rankData:" + rankData);
+          console.log("nameSiteMap:" + nameSiteMap);
+          console.log("result:" + result);
+          console.log("result.name:" + nameSiteMap["3月的狮子 第二季"].all.name);
+          console.log("result length:" + nameSiteMap.length);
+
+          let nowRankArray = new Array();
+          let index = 1;
+          for (let key in nameSiteMap) {
+            let nowPlayCount = nameSiteMap[key].all.nowPlayCount;
+            if (nowPlayCount == null) {
+              continue;
+            }
+            let obj = {};
+            // obj.set("no", ++index);
+            // obj.set("name", key);
+            // obj.set("playCount", nowPlayCount);
+            obj.no = index++;
+            obj.name = key;
+            obj.playCount = nowPlayCount;
+            nowRankArray.push(obj);
+          }
+          console.log(nowRankArray.length);
           // console.log(res.data.chartName);
-          return {data: res.data}
+
+          // 构造rank数据
+          const headers = [
+            {
+              text: "排名",
+              align: "left",
+              sortable: false,
+              value: "no"
+            },
+            {text: "名称", value: "name"},
+            {text: "播放量", value: "playCount"},
+          ];
+          const desserts = [{
+            no: "Frozen Yogurt",
+            name: 159,
+            playCount: 6.0,
+          }];
+          const desserts1 = nowRankArray;
+          console.log(desserts1)
+
+          return {
+            data: result.data,
+            headers: headers,
+            desserts1: desserts1,
+          }
         })
         .catch((e) => {
           console.log(e);
-          error({statusCode: 404, message: 'Post not found'})
+          error({statusCode: 404, message: "Post not found"})
         })
       console.log(bbb)
       return bbb;
