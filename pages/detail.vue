@@ -14,7 +14,7 @@
         </a>
       </div>
       <div>
-        <RankTable :headers="headers" :desserts="desserts1"/>
+        <RankTable :headers="headers" :desserts="desserts1"></RankTable>
       </div>
       <div>
         <RankTable2 :data="data"/>
@@ -90,7 +90,7 @@
     components: {
       Logo,
       RankTable,
-      RankTable2
+      RankTable2,
     },
     asyncData() {
       const url = process.env.baseUrl + "/rank/playData";

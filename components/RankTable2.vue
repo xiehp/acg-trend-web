@@ -32,14 +32,14 @@
         .then((res) => {
           console.log('res:');
           console.log(res);
-          console.log(res.data.chartName)
+          console.log(res.data.chartName);
           return {title: res.data.chartName}
         })
         .catch((e) => {
           console.log(e);
           error({statusCode: 404, message: 'Post not found'})
-        })
-      console.log(bbb)
+        });
+      console.log(bbb);
       return bbb;
     },
     props: {
