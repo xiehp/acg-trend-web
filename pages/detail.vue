@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
+      <logo />
       <h1 class="title">
         acg-trend-web
       </h1>
@@ -14,10 +14,10 @@
         </a>
       </div>
       <div>
-        <RankTable :headers="headers" :desserts="desserts1"></RankTable>
+        <RankTable :headers="headers" :desserts="desserts1" />
       </div>
       <div>
-        <RankTable2 :data="data"/>
+        <RankTable2 :data="data" />
       </div>
 
       <v-app id="inspire">
@@ -101,21 +101,21 @@
           nameSiteMap = rankData.nameSiteMap;
 
           console.log("access url:" + url + " success.");
-          console.log("result size:" + result.size);
-          console.log("rankData:" + rankData);
-          console.log("nameSiteMap:" + nameSiteMap);
-          console.log("result:" + result);
-          console.log("result.name:" + nameSiteMap["3月的狮子 第二季"].all.name);
-          console.log("result length:" + nameSiteMap.length);
+          // console.log("result size:" + result.length);
+          // console.log("rankData:" + rankData);
+          // console.log("nameSiteMap:" + nameSiteMap);
+          // console.log("result:" + result);
+          // console.log("result.name:" + nameSiteMap["3月的狮子 第二季"].all.name);
+          // console.log("result length:" + nameSiteMap.length);
 
-          let nowRankArray = new Array();
+          const nowRankArray = [];
           let index = 1;
-          for (let key in nameSiteMap) {
-            let nowPlayCount = nameSiteMap[key].all.nowPlayCount;
+          for (const key in nameSiteMap) {
+            const nowPlayCount = nameSiteMap[key].all.nowPlayCount;
             if (nowPlayCount == null) {
               continue;
             }
-            let obj = {};
+            const obj = {};
             // obj.set("no", ++index);
             // obj.set("name", key);
             // obj.set("playCount", nowPlayCount);
@@ -124,7 +124,7 @@
             obj.playCount = nowPlayCount;
             nowRankArray.push(obj);
           }
-          console.log(nowRankArray.length);
+          console.log("nowRankArray:" + nowRankArray.length);
           // console.log(res.data.chartName);
 
           // 构造rank数据
@@ -144,7 +144,7 @@
             playCount: 6.0,
           }];
           const desserts1 = nowRankArray;
-          console.log(desserts1)
+          // console.log(desserts1);
 
           return {
             data: result.data,
@@ -155,8 +155,8 @@
         .catch((e) => {
           console.log(e);
           error({statusCode: 404, message: "Post not found"})
-        })
-      console.log(bbb)
+        });
+      console.log(bbb);
       return bbb;
     }
   }
