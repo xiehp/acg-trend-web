@@ -3,13 +3,14 @@
     <v-toolbar :clipped-left="clipped" fixed app>
       <v-toolbar-title v-text="title" />
       <v-btn to="/">home</v-btn>
-      <v-btn to="/detail">detail btn</v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
+      <v-btn to="/detail">detail</v-btn>
+      <v-btn to="/help">help</v-btn>
+      <!--<v-btn icon @click.stop="clipped = !clipped">-->
+        <!--<v-icon>web</v-icon>-->
+      <!--</v-btn>-->
+      <!--<v-btn icon @click.stop="fixed = !fixed">-->
+        <!--<v-icon>remove</v-icon>-->
+      <!--</v-btn>-->
     </v-toolbar>
   </div>
 </template>
@@ -19,7 +20,7 @@
     components: {},
     data() {
       return {
-        title: "此处为标题",
+        title: "",
         clipped: false,
         drawer: false,
         fixed: false,

@@ -14,7 +14,7 @@
         </a>
       </div>
       <div>
-        <RankTable :headers="headers" :desserts="desserts1" />
+        <RankTable :headers="headers" :desserts="tableData" />
       </div>
       <div>
         <RankTable2 :data="data" />
@@ -143,13 +143,13 @@
             name: 159,
             playCount: 6.0,
           }];
-          const desserts1 = nowRankArray;
-          // console.log(desserts1);
+          const tableData = nowRankArray;
+          // console.log(tableData);
 
           return {
             data: result.data,
             headers: headers,
-            desserts1: desserts1,
+            tableData: tableData,
           }
         })
         .catch((e) => {

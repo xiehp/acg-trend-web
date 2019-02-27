@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <BackgroundStars></BackgroundStars>
+  <div id="layout_default">
     <v-app dark>
+      <BackgroundStars></BackgroundStars>
+
       <DefaultHeader></DefaultHeader>
 
       <v-content>
@@ -10,7 +11,7 @@
         </v-container>
       </v-content>
 
-      <v-footer :fixed="fixed" app>
+      <v-footer :fixed="fixed" app style="text-align: center;">
         <span>&copy; 2019</span>
       </v-footer>
     </v-app>
@@ -31,43 +32,8 @@
         clipped: false,
         drawer: false,
         fixed: false,
-        headTitles: [
-          {
-            icon: 'apps',
-            title: 'Welcome',
-            to: '/'
-          },
-          {
-            icon: 'bubble_chart',
-            title: 'Inspire',
-            to: '/inspire'
-          },
-          {
-            icon: 'bubble_chart',
-            title: 'detail',
-            to: '/detail'
-          }
-        ],
-        items: [
-          {
-            icon: 'apps',
-            title: 'Welcome',
-            to: '/'
-          },
-          {
-            icon: 'bubble_chart',
-            title: 'Inspire',
-            to: '/inspire'
-          },
-          {
-            icon: 'bubble_chart',
-            title: 'detail',
-            to: '/detail'
-          }
-        ],
         miniVariant: false,
         right: true,
-        title: 'Vuetify.js'
       }
     }
   }

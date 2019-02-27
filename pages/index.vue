@@ -1,111 +1,129 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
+  <v-layout row wrap>
+    <v-flex v-for="(tableData, key) in tableDatas" :key="key" xs12 sm12 md6>
       <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower
-            developers to create amazing applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing more exciting features in the
-            future.
-          </p>
-          <div class="text-xs-right">
-            <em>
-              <small>&mdash; John Leider</small>
-            </em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-        <v-card-actions>
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/detail"
-          >
-            Detail
-          </v-btn>
-        </v-card-actions>
+        <RankTable :headers="headers" :table-data="tableData" />
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-  import Logo from '~/components/Logo.vue'
-  import VuetifyLogo from '~/components/VuetifyLogo.vue'
+  import axios from "axios"
+  import RankTable from "../components/RankTable.vue"
+
+  const headers = [
+    {
+      text: "排名",
+      align: "left",
+      sortable: false,
+      value: "no"
+    },
+    {text: "名称", value: "name"},
+    {text: "播放量", value: "playCount"},
+  ];
+
+  let rankData;
+  let nameSiteMap;
 
   export default {
     components: {
-      Logo,
-      VuetifyLogo
+      RankTable,
+    },
+    asyncData() {
+      const url = process.env.baseUrl + "/rank/playData";
+      const tableDatasPM = axios.get(url).then((res) => {
+        const result = res.data;
+        rankData = result.data;
+        nameSiteMap = rankData.nameSiteMap;
+
+        console.log("access url:" + url + " success.");
+        // console.log("result size:" + result.length);
+        // console.log("rankData:" + rankData);
+        // console.log("nameSiteMap:" + nameSiteMap);
+        // console.log("result:" + result);
+        // console.log("result.name:" + nameSiteMap["3月的狮子 第二季"].all.name);
+        // console.log("result length:" + nameSiteMap.length);
+
+        // 构造rank数据
+
+        function convertToTableData(playCountKey) {
+          const rankArray = [];
+          let index = 1;
+          for (const key in nameSiteMap) {
+            const playCount = nameSiteMap[key].all[playCountKey];
+            if (playCount == null) {
+              continue;
+            }
+            const obj = {};
+            // obj.set("no", ++index);
+            // obj.set("name", key);
+            // obj.set("playCount", playCount);
+            obj.no = index++;
+            obj.name = key;
+            obj.playCount = playCount;
+            rankArray.push(obj);
+          }
+          console.log("RankArray of " + playCountKey + ": " + rankArray.length);
+
+          // console.log(tableData);
+
+          return rankArray;
+        }
+
+        const playCountKeys = ["nowPlayCount", "preHourPlayCount", "preDayPlayCount", "preWeekPlayCount", "preMonthPlayCount", "preYearPlayCount"];
+        console.log(playCountKeys);
+        const tableDatas = [];
+        for (const key in playCountKeys) {
+          const tableDataResult = convertToTableData(playCountKeys[key]);
+          tableDatas.push(tableDataResult);
+        }
+        console.log("axios:");
+        console.log(tableDatas);
+        return {tableDatas: tableDatas, headers: headers};
+      }).catch((e) => {
+        console.log(e);
+        error({statusCode: 404, message: "Post not found"})
+      });
+
+      console.log("asyncData:");
+      console.log(tableDatasPM);
+      return tableDatasPM;
     }
   }
+  // https://acgtrend.com/detail/trend/data/937/2
+  // http://localhost:13002/rank/playData
 </script>
+
+<style>
+  .container {
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    display: block;
+    font-weight: 300;
+    font-size: 100px;
+    color: #35495e;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-weight: 300;
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+  }
+
+  .links {
+    padding-top: 15px;
+  }
+</style>
