@@ -6,10 +6,10 @@
       <v-btn to="/detail">detail</v-btn>
       <v-btn to="/help">help</v-btn>
       <!--<v-btn icon @click.stop="clipped = !clipped">-->
-        <!--<v-icon>web</v-icon>-->
+      <!--<v-icon>web</v-icon>-->
       <!--</v-btn>-->
       <!--<v-btn icon @click.stop="fixed = !fixed">-->
-        <!--<v-icon>remove</v-icon>-->
+      <!--<v-icon>remove</v-icon>-->
       <!--</v-btn>-->
     </v-toolbar>
   </div>
@@ -20,7 +20,7 @@
     components: {},
     data() {
       return {
-        title: "",
+        title: "a title",
         clipped: false,
         drawer: false,
         fixed: false,

@@ -2,6 +2,10 @@
   <v-layout row wrap>
     <v-flex v-for="(tableData, key) in tableDatas" :key="key" xs12 sm12 md6>
       <v-card>
+        <v-toolbar>
+          <v-toolbar-title>{{playCountTitles[key]}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
         <RankTable :headers="headers" :table-data="tableData" />
       </v-card>
     </v-flex>
@@ -11,6 +15,8 @@
 <script>
   import axios from "axios"
   import RankTable from "../components/RankTable.vue"
+  const playCountKeys = ["nowPlayCount", "preHourPlayCount", "preDayPlayCount", "preWeekPlayCount", "preMonthPlayCount", "preYearPlayCount"];
+  const playCountTitles = ["当前播放量", "当时播放增长量", "当天播放增长量", "当周播放增长量", "当月播放增长量", "当年播放增长量"];
 
   const headers = [
     {
@@ -71,7 +77,6 @@
           return rankArray;
         }
 
-        const playCountKeys = ["nowPlayCount", "preHourPlayCount", "preDayPlayCount", "preWeekPlayCount", "preMonthPlayCount", "preYearPlayCount"];
         console.log(playCountKeys);
         const tableDatas = [];
         for (const key in playCountKeys) {
@@ -79,15 +84,15 @@
           tableDatas.push(tableDataResult);
         }
         console.log("axios:");
-        console.log(tableDatas);
-        return {tableDatas: tableDatas, headers: headers};
+        // console.log(tableDatas);
+        return {tableDatas: tableDatas, headers: headers, playCountTitles: playCountTitles};
       }).catch((e) => {
         console.log(e);
         error({statusCode: 404, message: "Post not found"})
       });
 
       console.log("asyncData:");
-      console.log(tableDatasPM);
+      // console.log(tableDatasPM);
       return tableDatasPM;
     }
   }

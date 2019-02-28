@@ -3,6 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="tableData"
+      hide-actions
       class="elevation-2"
     >
       <template slot="items" slot-scope="props">
