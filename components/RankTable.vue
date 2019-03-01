@@ -6,22 +6,22 @@
       hide-actions
       class="elevation-2"
     >
-      <template v-slot:items="props">
+      <template v-slot:items="{item}">
         <td class="text-sm-left">
-          {{ props.item.no }}
+          {{ item.no }}
         </td>
         <td class="text-sm-left">
-          {{ props.item.name }}
+          {{ item.name }}
         </td>
         <td class="text-sm-left">
-          {{ props.item.playCount }}
+          {{ item.playCount }}
         </td>
       </template>
 
       <template v-slot:no-data>
-        <v-alert :value="true" color="error" icon="warning">
-          对不起，没有数据
-        </v-alert>
+        <!--<v-alert :value="true" color="error" icon="warning">-->
+        对不起，没有数据
+        <!--</v-alert>-->
       </template>
     </v-data-table>
   </div>
