@@ -1,11 +1,12 @@
 <template>
   <v-layout row wrap>
     <v-flex v-for="(tableData, key) in tableDatas" :key="key" xs12 sm12 md6>
-      <v-card>
+      <v-card style="margin: 10px;">
         <v-toolbar>
           <v-toolbar-title>{{playCountTitles[key]}}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
+        <v-card-title><h2>{{playCountTitles[key]}}</h2></v-card-title>
         <RankTable :headers="headers" :table-data="tableData" />
       </v-card>
     </v-flex>
@@ -88,7 +89,7 @@
         return {tableDatas: tableDatas, headers: headers, playCountTitles: playCountTitles};
       }).catch((e) => {
         console.log(e);
-        error({statusCode: 404, message: "Post not found"})
+        // error({statusCode: 404, message: "Post not found"})
       });
 
       console.log("asyncData:");

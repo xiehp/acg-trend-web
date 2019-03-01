@@ -6,7 +6,7 @@
       hide-actions
       class="elevation-2"
     >
-      <template slot="items" slot-scope="props">
+      <template v-slot:items="props">
         <td class="text-sm-left">
           {{ props.item.no }}
         </td>
@@ -16,6 +16,12 @@
         <td class="text-sm-left">
           {{ props.item.playCount }}
         </td>
+      </template>
+
+      <template v-slot:no-data>
+        <v-alert :value="true" color="error" icon="warning">
+          对不起，没有数据
+        </v-alert>
       </template>
     </v-data-table>
   </div>

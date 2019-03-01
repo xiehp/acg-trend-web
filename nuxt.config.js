@@ -31,7 +31,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#FF0000' },
 
   /*
   ** Global CSS
@@ -62,6 +62,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['axios'],
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
