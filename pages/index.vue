@@ -3,10 +3,10 @@
     <v-flex v-for="(tableData, key) in tableDatas" :key="key" xs12 sm12 md6>
       <v-card style="margin: 10px;">
         <v-toolbar>
-          <v-toolbar-title>{{playCountTitles[key]}}</v-toolbar-title>
-          <v-spacer></v-spacer>
+          <v-toolbar-title>{{ playCountTitles[key] }}</v-toolbar-title>
+          <v-spacer />
         </v-toolbar>
-        <v-card-title><h2>{{playCountTitles[key]}}</h2></v-card-title>
+        <v-card-title><h2>{{ playCountTitles[key] }}</h2></v-card-title>
         <RankTable :headers="headers" :table-data="tableData" />
       </v-card>
     </v-flex>
@@ -17,7 +17,11 @@
   import axios from "axios"
   import RankTable from "../components/RankTable.vue"
   const playCountKeys = ["nowPlayCount", "preHourPlayCount", "preDayPlayCount", "preWeekPlayCount", "preMonthPlayCount", "preYearPlayCount"];
-  const playCountTitles = ["当前播放量", "当时播放增长量", "当天播放增长量", "当周播放增长量", "当月播放增长量", "当年播放增长量"];
+  let playCountTitles = ["今日播放量", "当周播放量", "当月播放量", "当季度播放量", "当年播放量", "总播放量"];
+  playCountTitles = ["最近一天播放量", "最近一周播放量", "最近一月播放量", "最近一季度播放量", "最近一年播放量", "总播放量"];
+
+  playCountTitles = ["当前播放总量", "当前一小时播放增长量", "今日播放增长量", "当周播放增长量", "当月播放增长量", "当年播放增长量"];
+
 
   const headers = [
     {
@@ -27,7 +31,8 @@
       value: "no"
     },
     {text: "名称", value: "name"},
-    {text: "播放量", value: "playCount"},
+    {text: "播放量", value: "playCount", align: "right"},
+    {text: "增长量", value: "playCountDiff", align: "right"},
   ];
 
   let rankData;
@@ -53,13 +58,13 @@
         // console.log("result length:" + nameSiteMap.length);
 
         // 构造rank数据
-
         function convertToTableData(playCountKey) {
           const rankArray = [];
           let index = 1;
           for (const key in nameSiteMap) {
+            const nowPlayCount = nameSiteMap[key].all.nowPlayCount;
             const playCount = nameSiteMap[key].all[playCountKey];
-            if (playCount == null) {
+            if (playCount === null || playCount === undefined || nowPlayCount === null) {
               continue;
             }
             const obj = {};
@@ -69,12 +74,27 @@
             obj.no = index++;
             obj.name = key;
             obj.playCount = playCount;
+            obj.playCountDiff = nowPlayCount - playCount;
             rankArray.push(obj);
           }
           console.log("RankArray of " + playCountKey + ": " + rankArray.length);
 
           // console.log(tableData);
-
+          if (playCountKey === "nowPlayCount") {
+            rankArray.sort((x, y) => {
+              return y.playCount - x.playCount;
+            });
+          } else {
+            rankArray.sort((x, y) => {
+              return y.playCountDiff - x.playCountDiff;
+            });
+          }
+          for (let i = 0; i < rankArray.length; i++) {
+            rankArray[i].no = i + 1;
+          }
+          // rankArray = rankArray.slice(0, 500);
+          rankArray.name = playCountKey;
+          rankArray.isNowPlayCount = playCountKey === "nowPlayCount";
           return rankArray;
         }
 
@@ -82,6 +102,7 @@
         const tableDatas = [];
         for (const key in playCountKeys) {
           const tableDataResult = convertToTableData(playCountKeys[key]);
+          console.log("tableDataResult:" + playCountKeys[key]);
           tableDatas.push(tableDataResult);
         }
         console.log("axios:");

@@ -20,7 +20,7 @@
     components: {},
     data() {
       return {
-        title: "a title",
+        title: "",
         clipped: false,
         drawer: false,
         fixed: false,

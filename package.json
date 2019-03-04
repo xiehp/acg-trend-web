@@ -19,7 +19,8 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "nuxt": "^2.4.5",
     "vuetify": "^1.5.4",
-    "vuetify-loader": "^1.2.1"
+    "vuetify-loader": "^1.2.1",
+    "axios": "latest"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",

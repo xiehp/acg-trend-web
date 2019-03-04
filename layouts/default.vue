@@ -14,6 +14,8 @@
       <v-footer :fixed="fixed" app style="text-align: center;">
         <span>&copy; 2019</span>
       </v-footer>
+
+      <BaiduTongji />
     </v-app>
   </div>
 </template>
@@ -21,9 +23,11 @@
 <script>
   import BackgroundStars from "../components/BackgroundStars/BackgroundStars";
   import DefaultHeader from "../components/layout/DefaultHeader.vue";
+  import BaiduTongji from "../components/BaiduTongji.vue";
 
   export default {
     components: {
+      BaiduTongji,
       BackgroundStars,
       DefaultHeader,
     },

@@ -20,7 +20,7 @@
     components: {},
     data() {
       return {
-        title: "a title",
+        title: "河外趋势",
         clipped: false,
         drawer: false,
         fixed: false,
