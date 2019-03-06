@@ -1,21 +1,41 @@
 <template>
-  <v-layout row wrap>
-    <v-flex v-for="(tableData, key) in tableDatas" :key="key" xs12 sm12 md6>
-      <v-card style="margin: 10px;">
-        <v-toolbar>
-          <v-toolbar-title>{{ playCountTitles[key] }}</v-toolbar-title>
-          <v-spacer />
-        </v-toolbar>
-        <v-card-title><h2>{{ playCountTitles[key] }}</h2></v-card-title>
-        <RankTable :headers="headers" :table-data="tableData" />
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <div>
+    <div>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+        xs12
+        sm12
+        md6></v-text-field>
+    </div>
+    <v-layout row wrap>
+      <v-flex
+        v-for="(tableData, key) in tableDatas"
+        :key="key"
+        xs12
+        sm12
+        md6
+      >
+        <v-card style="margin: 10px;">
+          <v-toolbar>
+            <v-toolbar-title>{{ playCountTitles[key] }}</v-toolbar-title>
+            <v-spacer />
+          </v-toolbar>
+          <v-card-title><h2>{{ playCountTitles[key] }}</h2></v-card-title>
+          <RankTable :headers="headers" :table-data="tableData" :search="search" />
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>
   import axios from "axios"
   import RankTable from "../components/RankTable.vue"
+
   const playCountKeys = ["nowPlayCount", "preHourPlayCount", "preDayPlayCount", "preWeekPlayCount", "preMonthPlayCount", "preYearPlayCount"];
   let playCountTitles = ["今日播放量", "当周播放量", "当月播放量", "当季度播放量", "当年播放量", "总播放量"];
   playCountTitles = ["最近一天播放量", "最近一周播放量", "最近一月播放量", "最近一季度播放量", "最近一年播放量", "总播放量"];
@@ -41,6 +61,11 @@
   export default {
     components: {
       RankTable,
+    },
+    data() {
+      return {
+        search: "",
+      }
     },
     asyncData() {
       const url = process.env.baseUrl + "/rank/playData";

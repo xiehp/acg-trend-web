@@ -8,6 +8,7 @@
       :pagination.sync="pagination"
       :loading="true"
       rows-per-page-text=""
+      :search="search"
     >
       <template v-slot:items="{item}">
         <td class="text-sm-center">
@@ -64,6 +65,7 @@
           return tableData;
         }
       },
+      search: String,
     },
     data() {
       return {
