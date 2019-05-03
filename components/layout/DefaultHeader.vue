@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-toolbar :clipped-left="clipped" fixed app>
-      <v-toolbar-title v-text="title" />
-      <v-btn to="/">home</v-btn>
-      <v-btn to="/detail">detail</v-btn>
-      <v-btn to="/help">help</v-btn>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-btn to="/">首页</v-btn>
+      <v-btn to="/BanPlayCount">动画播放量</v-btn>
+      <v-btn v-if="isLocalhost" to="/detail">detail</v-btn>
+      <v-btn v-if="isLocalhost" to="/help">help</v-btn>
       <!--<v-btn icon @click.stop="clipped = !clipped">-->
       <!--<v-icon>web</v-icon>-->
       <!--</v-btn>-->
@@ -16,9 +17,19 @@
 </template>
 
 <script>
+  import {VCard, VToolbar} from 'vuetify/lib';
+
   export default {
-    components: {},
+    components: {VCard, VToolbar},
     data() {
+      // 调试用按钮
+      let isLocalhost = false;
+      const url = process.env.baseUrl + this.$route.path;
+      console.info("now process.env.baseUrl:" + url);
+      if (url != null && url.indexOf("localhost") > -1) {
+        isLocalhost = true;
+      }
+
       return {
         title: "河外趋势",
         clipped: false,
@@ -41,6 +52,7 @@
             to: "/detail"
           }
         ],
+        isLocalhost: isLocalhost
       }
     }
   }

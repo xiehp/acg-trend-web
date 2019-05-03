@@ -1,9 +1,9 @@
 <template>
   <div id="layout_default">
     <v-app dark>
-      <BackgroundStars />
+      <BackgroundStars></BackgroundStars>
 
-      <DefaultHeader />
+      <DefaultHeader></DefaultHeader>
 
       <v-content>
         <v-container>

@@ -41,6 +41,16 @@
 </template>
 
 <script>
+  import numeral from "numeral";
+
+  let myNumeral = numeral(1000);
+
+  let value = myNumeral.value();
+
+  let myNumeral2 = numeral('1,000');
+
+  let value2 = myNumeral2.value();
+
   export default {
     name: "RankTable",
     props: {
@@ -104,6 +114,8 @@
     }
   }
   console.log("end RankTable.vue");
+
+
 </script>
 
 <style scoped>

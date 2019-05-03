@@ -26,7 +26,7 @@
     var pointSize = 4;
 
     /** 每秒多少帧 */
-    var fps = 15;
+    var fps = 5;
     /** 上次执行的时刻 */
     var last = new Date().getTime() / 1000 * 1000;
     console.info(last);

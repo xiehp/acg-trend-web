@@ -69,7 +69,6 @@
     },
     asyncData() {
       const url = process.env.baseUrl + "/rank/playData";
-      console.log("request url: " + url);
       const tableDatasPM = axios.get(url).then((res) => {
         const result = res.data;
         rankData = result.data;
@@ -99,6 +98,7 @@
             // obj.set("playCount", playCount);
             obj.no = index++;
             obj.name = key;
+            obj.code = nameSiteMap[key].all.code;
             obj.playCount = playCount;
             obj.playCountDiff = nowPlayCount - playCount;
             rankArray.push(obj);
