@@ -12,7 +12,7 @@
       </v-content>
 
       <v-footer :fixed="fixed" app style="text-align: center;">
-        <span>&copy; 2019</span>
+        <div style="text-align: center;"><span>&copy; 2019</span></div>
       </v-footer>
 
       <BaiduTongji />

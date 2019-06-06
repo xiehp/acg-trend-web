@@ -3,7 +3,10 @@
     <v-toolbar :clipped-left="clipped" fixed app>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-btn to="/">首页</v-btn>
-      <v-btn to="/BanPlayCount">动画播放量</v-btn>
+      <v-btn to="/hot">当前热播</v-btn>
+<!--      <v-btn to="/BanPlayCount">动画播放量排行</v-btn>-->
+      <v-btn to="/PlayCountRankByTime">分时播放量前100排行</v-btn>
+      <v-btn to="/AllPlayCount">所有播放量排行</v-btn>
       <v-btn v-if="isLocalhost" to="/detail">detail</v-btn>
       <v-btn v-if="isLocalhost" to="/help">help</v-btn>
       <!--<v-btn icon @click.stop="clipped = !clipped">-->

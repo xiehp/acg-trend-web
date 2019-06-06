@@ -22,10 +22,10 @@
         <v-card style="margin: 10px;">
           <v-toolbar>
             <v-toolbar-title>{{ playCountTitles[key] }}</v-toolbar-title>
-            <v-spacer />
+            <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-title><h2>{{ playCountTitles[key] }}</h2></v-card-title>
-          <RankTable :headers="headers" :table-data="tableData" :search="search" />
+          <RankTable :headers="headers" :table-data="tableData" :search="search"></RankTable>
         </v-card>
       </v-flex>
     </v-layout>
